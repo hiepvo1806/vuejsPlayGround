@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first Vue app</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>fullMsg : {{ fullMsg }}</p>
+        <p>original msg : {{ message }}</p>
+        <input v-model="message">
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello',
+                fullMsg: ''
+            },
+            watch: {
+                message: function (val) {
+                    this.fullMsg = "Hello " + val; 
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>
