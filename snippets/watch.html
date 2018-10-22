@@ -10,7 +10,11 @@
     <div id="app">
         <p>fullMsg : {{ fullMsg }}</p>
         <p>original msg : {{ message }}</p>
+        <p>computedMsg : {{computedMsg}}</p>
         <input v-model="message">
+        <input v-model="firstName">
+        <input v-model="lastName">
+        <p>fullName getter setter : {{fullName}}</p>
     </div>
 
     <script>
@@ -18,12 +22,32 @@
             el: '#app',
             data: {
                 message: 'Hello',
-                fullMsg: ''
+                fullMsg: '',
+                firstName: 'Jeff',
+                lastName: 'Vo'
             },
             watch: {
+                //should not use
                 message: function (val) {
-                    this.fullMsg = "Hello " + val; 
+                    this.fullMsg = "Hello " + val;
                 },
+            },
+            computed: {
+                computedMsg: function () {
+                    return "Hello " + this.message
+                },
+                fullName: {
+                    // getter
+                    get: function () {
+                        return this.firstName + ' ' + this.lastName
+                    },
+                    // setter
+                    set: function (newValue) {
+                        var names = newValue.split(' ');
+                        this.firstName = names[0];
+                        this.lastName = names[names.length - 1];
+                    }
+                }
             }
         });
     </script>
