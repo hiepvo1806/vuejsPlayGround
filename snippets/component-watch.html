@@ -17,7 +17,14 @@
         }
         var vm = new Vue({
             el: '#example',
-            data: data
+            data: data,
+            created: function () {
+                //life circle hooks : `this` points to the vm instance
+                //There are also other hooks which will be called at different stages 
+                //of the instance’s lifecycle, such as mounted, updated, and destroyed. 
+                //All lifecycle hooks are called with their this context pointing to the Vue instance invoking it.
+                console.log('a is: ' + this.a)
+            }
         })
 
         vm.$data === data // => true
@@ -26,7 +33,7 @@
         // $watch is an instance method
         vm.$watch('a', function (newValue, oldValue) {
             // This callback will be called when `vm.a` changes
-            console.log('watch',newValue,oldValue);
+            console.log('watch', newValue, oldValue);
         })
     </script>
 </body>
