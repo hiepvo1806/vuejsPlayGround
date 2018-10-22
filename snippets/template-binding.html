@@ -11,6 +11,8 @@
         <p>Using mustaches: {{ rawHtml }}</p>
         <p>Using v-html directive: <span v-html="rawHtml"></span></p>
         <!-- Mustaches cannot be used inside HTML attributes. Instead, use a v-bind directive -->
+        <!-- <a v-bind:href="url"> ... </a> // href is a param/argument of v-bind directive -->
+        <!-- Another example is the v-on directive, which listens to DOM events: -->
         <div v-bind:id="dynamicId"></div>
         <button v-bind:disabled="isButtonDisabled">Button</button>
     </div>
