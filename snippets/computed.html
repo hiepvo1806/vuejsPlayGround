@@ -8,7 +8,11 @@
 
 <body>
     <div id="app">
-        {{ message }}
+        <div>original msg : {{ message }}</div>
+        <div>reverse msg : {{ reversedMessage }}</div>
+        <div>Reversed message using method: "{{ reverseMessageFunc() }}"</div>
+        <div>Now computed cache:  {{now}}</div>
+        <div>Now computed func:  {{nowFunc()}}</div>
     </div>
 
     <script>
@@ -16,10 +20,42 @@
             el: '#app',
             data: {
                 message: 'Hello Jeff Vue!'
+            },
+            computed: {
+                reversedMessage: function () {
+                    // `this` points to the vm instance
+                    //Vue is aware that vm.reversedMessage depends on vm.message, 
+                    //so it will update any bindings that depend on vm.reversedMessage when vm.message changes. And the best part is that we’ve created this dependency relationship declaratively: 
+                    //the computed getter function has no side effects, which makes it easier to test and understand.
+                    return this.message.split('').reverse().join('')
+                },
+                now: function () {
+                    return Date.now()
+                }
+            },
+            methods: {
+                reverseMessageFunc() {
+                    //same above with no caching
+                    // a method invocation will always run the function whenever a re-render happens.
+                    return this.message.split('').reverse().join('');
+                },
+                nowFunc: function () {
+                    // In cases where you do not want caching, use a method instead.
+                    return Date.now()
+                }
             }
         });
         app.message = 'hello Jeff too';
     </script>
+
+
+    <!-- Computed properties are cached based on their dependencies. 
+A computed property will only re-evaluate when some of its dependencies have changed.  
+This also means the following computed property will never update, 
+because Date.now() is not a reactive dependency:
+
+
+-->
 </body>
 
 </html>
